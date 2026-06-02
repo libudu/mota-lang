@@ -4,8 +4,13 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { traeBadgePlugin } from "vite-plugin-trae-solo-badge";
 
+const isGitHubPagesBuild = process.env.GITHUB_PAGES === "true";
+const repositoryName =
+  process.env.GITHUB_REPOSITORY?.split("/")[1] ?? "mota-lang";
+
 // https://vite.dev/config/
 export default defineConfig({
+  base: isGitHubPagesBuild ? `/${repositoryName}/` : "/",
   build: {
     sourcemap: "hidden",
   },
