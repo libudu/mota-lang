@@ -4,7 +4,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   base: "/mota-lang",
   build: {
     sourcemap: "hidden",
@@ -23,9 +23,9 @@ export default defineConfig({
     }),
     react({
       babel: {
-        plugins: ["react-dev-locator"],
+        plugins: command === "serve" ? ["react-dev-locator"] : [],
       },
     }),
     tsconfigPaths(),
   ],
-});
+}));
